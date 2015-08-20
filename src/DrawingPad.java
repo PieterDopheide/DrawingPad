@@ -1,7 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JColorChooser;
@@ -44,9 +51,11 @@ public class DrawingPad extends JFrame implements ActionListener {
 		JMenuItem saveItem = new JMenuItem("Save");
 //		saveItem.setAccelerator(KeyStroke.getKeyStroke(
 //		        KeyEvent.VK_2, ActionEvent.ALT_MASK));
+		saveItem.addActionListener(this);
 		file.add(saveItem);
 		
 		JMenuItem openItem = new JMenuItem("Open");
+		openItem.addActionListener(this);
 		file.add(openItem);
 		
 		JMenuItem rectItem = new JMenuItem("Rectangle");
@@ -66,7 +75,6 @@ public class DrawingPad extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 		switch (arg0.getActionCommand()) {
 			case "Clear":
 				figure = null;
@@ -77,10 +85,77 @@ public class DrawingPad extends JFrame implements ActionListener {
 			case "Color":
 				figureColor = JColorChooser.showDialog(null, "JColorChooser Sample", null);
 				break;
+			case "Save":
+				String outFile = showFileDialog("save");
+				saveFigures(outFile);
+				break;
+			case "Open":
+				String inFile = showFileDialog("load");
+				openFigures(inFile);
+				break;
 			default:
 				figureType = arg0.getActionCommand();
 				break;
 		}
+	}
+	
+	private void saveFigures(String filePath) {
+		try {
+//			FileOutputStream fout = new FileOutputStream("C:\\Users\\Student\\Documents\\test.ser");
+			FileOutputStream fout = new FileOutputStream(filePath);
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(figures);
+			fout.close();
+			oos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void openFigures(String filePath) {
+		try {
+//			FileInputStream fins = new FileInputStream("C:\\Users\\Student\\Documents\\test.ser");
+			FileInputStream fins = new FileInputStream(filePath);
+			ObjectInputStream ois = new ObjectInputStream(fins);
+			figures = (ArrayList<Figure>) ois.readObject();
+			fins.close();
+			ois.close();
+			canvas.repaint();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private String showFileDialog(String operation) {
+		String filePath = null;
+		FileDialog fd = null;
+		
+		if (operation.equals("save"))
+		fd = new FileDialog(this, "Choose a file", FileDialog.SAVE);
+		else if (operation.equals("load"))
+			fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
+		fd.setDirectory("C:\\");
+		fd.setFile("*.ser");
+		fd.setVisible(true);
+		filePath = fd.getFile();
+		if (filePath == null)
+			System.out.println("You cancelled the choice");
+		else
+			System.out.println("You chose " + filePath);
+		
+		return filePath;
 	}
 
 }

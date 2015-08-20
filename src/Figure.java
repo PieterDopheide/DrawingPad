@@ -1,7 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public abstract class Figure {
+public abstract class Figure implements Serializable {
 	
 	protected int x, y, x2, y2;
 	protected Color figureColor;

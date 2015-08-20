@@ -13,7 +13,6 @@ public class MouseHandler extends MouseAdapter {
 		// TODO Auto-generated method stub
 //		super.mousePressed(e);
 		System.out.println("Pressed");
-		System.out.println("###" + drawingPad.figureType);
 		
 		switch (drawingPad.figureType) {
 		case "Rectangle":
