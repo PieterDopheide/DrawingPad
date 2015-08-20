@@ -1,8 +1,10 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,6 +15,7 @@ public class DrawingPad extends JFrame implements ActionListener {
 	Canvas canvas = new Canvas(this);
 	MouseHandler mouseHandler = new MouseHandler(this);
 	Figure figure = null;
+	Color figureColor;
 	String figureType= "Rectangle";
 	ArrayList<Figure> figures = new ArrayList<Figure>();
 	
@@ -28,12 +31,15 @@ public class DrawingPad extends JFrame implements ActionListener {
 		JMenu color = new JMenu("Color");
 		menuBar.add(file);
 		menuBar.add(figures);
-		menuBar.add(color);
 		getContentPane().add(menuBar, BorderLayout.NORTH);
 		
 		JMenuItem clearItem = new JMenuItem("Clear");
 		clearItem.addActionListener(this);
 		menuBar.add(clearItem);
+		
+		JMenuItem colorItem = new JMenuItem("Color");
+		colorItem.addActionListener(this);
+		menuBar.add(colorItem);
 
 		JMenuItem saveItem = new JMenuItem("Save");
 //		saveItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -67,6 +73,9 @@ public class DrawingPad extends JFrame implements ActionListener {
 				figures.clear();
 				canvas.repaint();
 				System.out.println("clear");
+				break;
+			case "Color":
+				figureColor = JColorChooser.showDialog(null, "JColorChooser Sample", null);
 				break;
 			default:
 				figureType = arg0.getActionCommand();

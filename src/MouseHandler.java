@@ -43,6 +43,8 @@ public class MouseHandler extends MouseAdapter {
 		
 		drawingPad.figure.setX2Y2(e.getX(), e.getY());
 		
+		drawingPad.figure.setColor(drawingPad.figureColor);
+		
 		if (drawingPad.figure != null) {
 			drawingPad.figures.add(drawingPad.figure);
 		}
