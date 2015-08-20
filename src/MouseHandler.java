@@ -27,14 +27,6 @@ public class MouseHandler extends MouseAdapter {
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		drawingPad.figure.x2 = e.getX();
-		drawingPad.figure.y2 = e.getY();
-		
-		drawingPad.canvas.repaint();
-	};
-
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 //		super.mouseReleased(e);

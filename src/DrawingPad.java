@@ -142,10 +142,12 @@ public class DrawingPad extends JFrame implements ActionListener {
 		String filePath = null;
 		FileDialog fd = null;
 		
-		if (operation.equals("save"))
-		fd = new FileDialog(this, "Choose a file", FileDialog.SAVE);
-		else if (operation.equals("load"))
+		if (operation.equals("save")) {
+			fd = new FileDialog(this, "Choose a file", FileDialog.SAVE);
+		}
+		else if (operation.equals("load")) {
 			fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
+		}
 		fd.setDirectory("C:\\");
 		fd.setFile("*.ser");
 		fd.setVisible(true);
