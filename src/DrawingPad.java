@@ -36,7 +36,6 @@ public class DrawingPad extends JFrame implements ActionListener {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenu figures = new JMenu("Figures");
-		JMenu color = new JMenu("Color");
 		menuBar.add(file);
 		menuBar.add(figures);
 		getContentPane().add(menuBar, BorderLayout.NORTH);
