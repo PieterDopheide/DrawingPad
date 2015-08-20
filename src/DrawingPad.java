@@ -3,20 +3,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class DrawingPad extends JFrame implements ActionListener {
 	
 	Canvas canvas = new Canvas(this);
 	MouseHandler mouseHandler = new MouseHandler(this);
-//	Rectangle rectangle = new Rectangle();
-//	Circle circle = new Circle();
-	Figure figure;
-	
-	String figureType= "R";
-	
+	Figure figure = null;
+	String figureType= "Rectangle";
 	ArrayList<Figure> figures = new ArrayList<Figure>();
 	
 	public DrawingPad() {
@@ -25,42 +22,54 @@ public class DrawingPad extends JFrame implements ActionListener {
 		getContentPane().add(canvas);
 		canvas.addMouseListener(mouseHandler);
 		
-		JPanel panel = new JPanel();
+		JMenuBar menuBar = new JMenuBar();
+		JMenu file = new JMenu("File");
+		JMenu figures = new JMenu("Figures");
+		JMenu color = new JMenu("Color");
+		menuBar.add(file);
+		menuBar.add(figures);
+		menuBar.add(color);
+		getContentPane().add(menuBar, BorderLayout.NORTH);
 		
-		JButton rectButton = new JButton();
-		rectButton.setText("R");
-		panel.add(rectButton, BorderLayout.CENTER);
-		rectButton.addActionListener(this);
+		JMenuItem clearItem = new JMenuItem("Clear");
+		clearItem.addActionListener(this);
+		menuBar.add(clearItem);
+
+		JMenuItem saveItem = new JMenuItem("Save");
+//		saveItem.setAccelerator(KeyStroke.getKeyStroke(
+//		        KeyEvent.VK_2, ActionEvent.ALT_MASK));
+		file.add(saveItem);
 		
-		JButton circleButton = new JButton();
-		circleButton.setText("C");
-		panel.add(circleButton, BorderLayout.EAST);
-		circleButton.addActionListener(this);
+		JMenuItem openItem = new JMenuItem("Open");
+		file.add(openItem);
 		
-		JButton clearButton = new JButton();
-		clearButton.setText("Clear");
-		panel.add(clearButton, BorderLayout.WEST);
-		clearButton.addActionListener(this);
-		
-		getContentPane().add(panel, BorderLayout.NORTH);
+		JMenuItem rectItem = new JMenuItem("Rectangle");
+		rectItem.addActionListener(this);
+		figures.add(rectItem);
+		JMenuItem circleItem = new JMenuItem("Circle");
+		circleItem.addActionListener(this);
+		figures.add(circleItem);
 	}
 
 	public static void main(String[] args) {
 		DrawingPad drawingPad = new DrawingPad();
-		drawingPad.setSize(300, 300);
+		drawingPad.setSize(800, 600);
 		drawingPad.setVisible(true);
 		drawingPad.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		figureType = arg0.getActionCommand();
 		
-		switch (figureType) {
+		switch (arg0.getActionCommand()) {
 			case "Clear":
+				figure = null;
 				figures.clear();
 				canvas.repaint();
 				System.out.println("clear");
+				break;
+			default:
+				figureType = arg0.getActionCommand();
 				break;
 		}
 	}

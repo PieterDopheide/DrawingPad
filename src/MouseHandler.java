@@ -13,29 +13,39 @@ public class MouseHandler extends MouseAdapter {
 		// TODO Auto-generated method stub
 //		super.mousePressed(e);
 		System.out.println("Pressed");
-//		drawingPad.rectangle.x = e.getX();
-//		drawingPad.rectangle.y = e.getY();
-//		
-//		drawingPad.circle.x = e.getX();
-//		drawingPad.circle.y = e.getY();
+		System.out.println("###" + drawingPad.figureType);
 		
-		drawingPad.figure.x = e.getX();
-		drawingPad.figure.y = e.getY();
+		switch (drawingPad.figureType) {
+		case "Rectangle":
+			drawingPad.figure = new Rectangle();
+			break;
+		case "Circle":
+			drawingPad.figure = new Circle();
+			break;
+		}
+		
+		drawingPad.figure.setXY(e.getX(), e.getY());
 	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		drawingPad.figure.x2 = e.getX();
+		drawingPad.figure.y2 = e.getY();
+		
+		drawingPad.canvas.repaint();
+	};
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 //		super.mouseReleased(e);
 		System.out.println("Released");
-//		drawingPad.rectangle.x2 = e.getX();
-//		drawingPad.rectangle.y2 = e.getY();
-//		
-//		drawingPad.circle.x2 = e.getX();
-//		drawingPad.circle.y2 = e.getY();
 		
-		drawingPad.figure.x2 = e.getX();
-		drawingPad.figure.y2 = e.getY();
+		drawingPad.figure.setX2Y2(e.getX(), e.getY());
+		
+		if (drawingPad.figure != null) {
+			drawingPad.figures.add(drawingPad.figure);
+		}
 		
 		drawingPad.canvas.repaint();
 	}

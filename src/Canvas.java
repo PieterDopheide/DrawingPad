@@ -14,22 +14,10 @@ public class Canvas extends JComponent {
 		// TODO Auto-generated method stub
 //		super.paint(arg0);
 		
-		switch (drawingPad.figureType) {
-		case "R":
-//			drawingPad.rectangle.draw(arg0);
-			drawingPad.figure = new Rectangle();
-			break;
-		case "C":
-//			drawingPad.circle.draw(arg0);
-			drawingPad.figure = new Circle();
-			break;
-		}
-		
-//		drawingPad.figure.draw(arg0);
-		drawingPad.figures.add(drawingPad.figure);
-		
-		for (Figure fig : drawingPad.figures) {
-			fig.draw(arg0);
+		if (!drawingPad.figures.isEmpty()) {
+			for (Figure fig : drawingPad.figures) {
+				fig.draw(arg0);
+			}
 		}
 	}
 
