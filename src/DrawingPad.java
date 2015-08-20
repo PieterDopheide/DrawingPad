@@ -31,6 +31,7 @@ public class DrawingPad extends JFrame implements ActionListener {
 		
 		getContentPane().add(canvas);
 		canvas.addMouseListener(mouseHandler);
+		canvas.addMouseMotionListener(mouseHandler);
 		
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("File");

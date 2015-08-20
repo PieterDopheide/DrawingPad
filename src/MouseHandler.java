@@ -23,6 +23,11 @@ public class MouseHandler extends MouseAdapter {
 			break;
 		}
 		
+		if (drawingPad.figure != null) {
+			drawingPad.figures.add(drawingPad.figure);
+		}
+		
+		drawingPad.figure.setColor(drawingPad.figureColor);
 		drawingPad.figure.setXY(e.getX(), e.getY());
 	}
 	
@@ -34,11 +39,16 @@ public class MouseHandler extends MouseAdapter {
 		
 		drawingPad.figure.setX2Y2(e.getX(), e.getY());
 		
-		drawingPad.figure.setColor(drawingPad.figureColor);
+		drawingPad.canvas.repaint();
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+//		super.mouseDragged(e);
+		System.out.println("Dragged");
 		
-		if (drawingPad.figure != null) {
-			drawingPad.figures.add(drawingPad.figure);
-		}
+		drawingPad.figure.setX2Y2(e.getX(), e.getY());
 		
 		drawingPad.canvas.repaint();
 	}
