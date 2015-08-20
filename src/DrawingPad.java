@@ -101,7 +101,6 @@ public class DrawingPad extends JFrame implements ActionListener {
 	
 	private void saveFigures(String filePath) {
 		try {
-//			FileOutputStream fout = new FileOutputStream("C:\\Users\\Student\\Documents\\test.ser");
 			FileOutputStream fout = new FileOutputStream(filePath);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(figures);
@@ -119,7 +118,6 @@ public class DrawingPad extends JFrame implements ActionListener {
 	@SuppressWarnings("unchecked")
 	private void openFigures(String filePath) {
 		try {
-//			FileInputStream fins = new FileInputStream("C:\\Users\\Student\\Documents\\test.ser");
 			FileInputStream fins = new FileInputStream(filePath);
 			ObjectInputStream ois = new ObjectInputStream(fins);
 			figures = (ArrayList<Figure>) ois.readObject();
